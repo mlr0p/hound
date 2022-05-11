@@ -167,11 +167,18 @@ func (n *Index) Search(pat string, opt *SearchOptions) (*SearchResponse, error) 
 	)
 
 	var fre *regexp.Regexp
-	if opt.FileRegexp != "" {
-		fre, err = regexp.Compile(opt.FileRegexp)
-		if err != nil {
-			return nil, err
-		}
+	// if opt.FileRegexp != "" {
+	// 	fre, err = regexp.Compile(opt.FileRegexp)
+	// 	if err != nil {
+	// 		return nil, err
+	// 	}
+	// }
+	if opt.FileRegexp == "" {
+		opt.FileRegexp = "^*.amd$"
+	}
+	fre, err = regexp.Compile(opt.FileRegexp)
+	if err != nil {
+		return nil, err
 	}
 
 	var excludeFre *regexp.Regexp
